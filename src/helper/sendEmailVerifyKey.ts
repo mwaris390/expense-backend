@@ -6,7 +6,9 @@ export async function SendEmailVerifyKey(recipient_email: string,key:string,limi
     auth: {
       user: process.env.SENDER_EMAIL, // your Gmail account
       pass: process.env.SENDER_PASS, // your Gmail password or App Password
+      
     },
+    
   });
 
   // Verify connection configuration
@@ -22,7 +24,7 @@ export async function SendEmailVerifyKey(recipient_email: string,key:string,limi
     from: process.env.SENDER_EMAIL,
     to: recipient_email,
     subject: "Account Verification key from Trackify",
-    text: `Hello ${firstName} ${lastName} from Trackify thanks for making account here here is your key: ${key} for account verification. you can verify till ${limit}`,
+    text: `Hello ${firstName} ${lastName} from Trackify thanks for making account here is your key: ${key} for account verification. you can verify till ${limit}`
   };
 
   transporter.sendMail(mailOptions, (error, info) => {
