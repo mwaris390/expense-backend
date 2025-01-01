@@ -33,6 +33,7 @@ app.use(
   cors({
     origin: "https://expense-frontend-jet.vercel.app",
     credentials: true,
+    
   })
 );
 app.options(

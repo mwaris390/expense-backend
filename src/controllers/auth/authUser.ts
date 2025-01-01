@@ -26,8 +26,9 @@ export async function AuthUser(req: Request, res: Response) {
           const token = await GenerateJWT();
           res.cookie("token", token, {
             httpOnly: true,
-            secure: false,
-            sameSite: "lax",
+            secure: true,
+            sameSite: "none",
+            
           });
           return await prisma.user.findUnique({
             where: {
