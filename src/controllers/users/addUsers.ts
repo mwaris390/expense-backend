@@ -9,9 +9,11 @@ import { SendEmailVerifyKey } from "../../helper/sendEmailVerifyKey";
 export async function AddUser(req: Request, res: Response) {
   const { fname, lname, age, email, password, gender } = req.body;
   const isVerified = false;
-  const generatedKey = String(GenerateFourDigitKey());
   const maxDateLimit = getMaxDateTime();
   try {
+    const generatedKey = String(GenerateFourDigitKey());
+    console.log('generated at adding user',generatedKey);
+    
     const hashPassword = await bcrypt.hash(password, 5);
     const result = await prisma.user.create({
       data: {
