@@ -23,17 +23,22 @@ const server = http.createServer(app);
 const io = new Server(server, {
   path: "/expense-notification",
   cors: {
-    origin: "http://localhost:5173", // Replace with your client origin
+    origin: "https://expense-frontend-jet.vercel.app", // Replace with your client origin http://localhost:5173
     methods: ["GET", "POST"],
     credentials: true,
   },
 });
 const morganFormat = ":method :url :status :response-time ms";
-app.use(cors({ origin: "http://localhost:5173", credentials: true }));
+app.use(
+  cors({
+    origin: "https://expense-frontend-jet.vercel.app",
+    credentials: true,
+  })
+);
 app.options(
   "*",
   cors({
-    origin: "http://localhost:5173",
+    origin: "https://expense-frontend-jet.vercel.app",
     credentials: true,
   })
 );
@@ -85,6 +90,11 @@ io.on("connection", (socket) => {
 export const emitNotification = (userId: string, notification: any) => {
   io.to(userId).emit(`notification`, notification); // Emits only to the specific user
 };
+
+//health check endpoint
+app.get("/health-check", (req: Request, res: Response) => {
+  res.json({ message: "all goods" });
+});
 
 server.listen(port, () => {
   console.log(`Server is Fire at http://localhost:${port}`);

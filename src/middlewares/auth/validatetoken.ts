@@ -8,7 +8,11 @@ export async function ValidateToken(
   res: Response,
   next: NextFunction
 ) {
-  if (req.url.includes("/login") || req.url.includes("/register-users")) {
+  if (
+    req.url.includes("/login") ||
+    req.url.includes("/register-users") ||
+    req.url.includes("/health-check")
+  ) {
     console.log("non protected url");
 
     next();
@@ -24,7 +28,7 @@ export async function ValidateToken(
         res.cookie("token", token, {
           httpOnly: true,
           secure: false,
-          sameSite:'lax'
+          sameSite: "lax",
         });
         next();
       } else {
