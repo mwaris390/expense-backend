@@ -27,8 +27,8 @@ export async function ValidateToken(
         const token = await GenerateJWT();
         res.cookie("token", token, {
           httpOnly: true,
-          secure: false,
-          sameSite: "lax",
+          secure: true,
+          sameSite: "none",
         });
         next();
       } else {
